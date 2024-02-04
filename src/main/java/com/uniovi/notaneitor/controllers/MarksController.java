@@ -1,0 +1,30 @@
+package com.uniovi.notaneitor.controllers;
+
+import org.springframework.web.bind.annotation.*;
+import com.uniovi.notaneitor.entities.Mark;
+
+@RestController
+public class MarksController {
+    @RequestMapping("/mark/list")
+    public String getList() {
+        return "Getting List";
+    }
+
+    @RequestMapping(value = "/mark/add", method = RequestMethod.POST)
+    public String setMark(@ModelAttribute Mark mark) {
+        return "added: " + mark.getDescription()
+                + " with score : " + mark.getScore()
+                + " id: " + mark.getId();
+    }
+
+    @RequestMapping("/mark/details/{id}")   // This is one way of doing it (/mark/details/5)
+    public String getDetail(@PathVariable Long id) {
+        return "Getting Details =>" + id;
+    }
+
+//    @RequestMapping("/mark/details")  // This is another way of doing it too (/mark/details?id=4)
+//    public String getDetail(@RequestParam Long id) {
+//        return "Getting Details => " + id;
+//    }
+
+}
