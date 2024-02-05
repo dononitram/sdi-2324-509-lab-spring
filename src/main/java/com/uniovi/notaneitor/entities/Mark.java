@@ -1,5 +1,11 @@
 package com.uniovi.notaneitor.entities;
+
+import javax.persistence.*;
+
+@Entity
 public class Mark {
+    @Id
+    @GeneratedValue
     private Long id;
     private String description;
     private Double score;
