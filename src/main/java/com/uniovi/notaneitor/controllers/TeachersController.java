@@ -1,7 +1,7 @@
 package com.uniovi.notaneitor.controllers;
 
 import com.uniovi.notaneitor.entities.Teacher;
-import com.uniovi.notaneitor.services.TeachersService;
+import com.uniovi.notaneitor.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TeachersController {
 
     @Autowired  //Inyectar el servicio
-    private TeachersService teachersService;
+    private ProfessorService teachersService;
 
     @RequestMapping("/teacher/list")
     public String getList(Model model) {
