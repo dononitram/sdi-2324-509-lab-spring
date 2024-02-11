@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Teacher {
+public class Professor {
 
     @Id
     @GeneratedValue
@@ -16,13 +16,13 @@ public class Teacher {
     private String apellidos;
     private String categoria;
 
-    public Teacher(String dni, String nombre, String apellidos) {
+    public Professor(String dni, String nombre, String apellidos) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
     }
 
-    public Teacher() {}
+    public Professor() {}
 
     public Long getId() {
         return id;
@@ -66,7 +66,7 @@ public class Teacher {
 
     @Override
     public String toString() {
-        return "Teacher{" +
+        return "Professor {" +
                 "id=" + id +
                 ", dni='" + dni + '\'' +
                 ", nombre='" + nombre + '\'' +
