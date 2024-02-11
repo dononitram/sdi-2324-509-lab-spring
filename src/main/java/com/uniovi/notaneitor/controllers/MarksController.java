@@ -19,6 +19,12 @@ public class MarksController {
         return "mark/list";
     }
 
+    @RequestMapping("/mark/list/update")
+    public String updateList(Model model){
+        model.addAttribute("markList", marksService.getMarks() );
+        return "mark/list :: marksTable";
+    }
+
     @RequestMapping(value = "/mark/add")
     public String getMark() {
         return "mark/add";
@@ -41,11 +47,6 @@ public class MarksController {
         model.addAttribute("mark", marksService.getMark(id));
         return "mark/details";
     }
-
-//    @RequestMapping("/mark/details")  // This is another way of doing it too (/mark/details?id=4)
-//    public String getDetail(@RequestParam Long id) {
-//        return "Getting Details => " + id;
-//    }
 
     @RequestMapping(value = "/mark/edit/{id}")
     public String getEdit(Model model, @PathVariable Long id) {
