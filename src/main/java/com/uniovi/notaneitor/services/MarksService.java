@@ -15,13 +15,6 @@ public class MarksService {
     @Autowired
     private MarksRepository marksRepository;
 
-//    private List<Mark> marksList = new LinkedList<Mark>();    // no database
-//    @PostConstruct
-//    public void init() {
-//        marksList.add(new Mark(1L, "Ejercicio 1", 10.0));
-//        marksList.add(new Mark(2L, "Ejercicio 2", 9.0));
-//    }
-
     public List<Mark> getMarks() {
         List<Mark> marks = new ArrayList<Mark>();
         marksRepository.findAll().forEach(marks::add);
