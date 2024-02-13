@@ -20,13 +20,19 @@ public class ProfessorsService {
         return professors;
     }
 
+    public Professor getProfessorByDni(String dni) {
+        return professorsRepository.findByDni(dni);
+    }
+
     public Professor getProfessor(Long id) {
         return professorsRepository.findById(id).get();
     }
 
     public void addProfessor(Professor professor) {
         // Si en Id es null le asignamos el último + 1 de la lista
+        professor.setDni(professor.getDni().toUpperCase());
         professorsRepository.save(professor);
+
     }
 
     public void deleteProfessor(Long id) {
