@@ -65,6 +65,12 @@ public class UsersController {
         return "redirect:/user/details/" + id;
     }
 
+    @RequestMapping("/user/list/update")
+    public String updateList(Model model) {
+        model.addAttribute("usersList", usersService.getUsers());
+        return "user/list :: tableUsers";
+    }
+
 
     // USER REGISTER
 
