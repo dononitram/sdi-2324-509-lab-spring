@@ -11,12 +11,9 @@ public class User {
     private String dni;
     private String name;
     private String lastName;
-
     private String password;
-
     @Transient
     private String passwordConfirm;
-
     private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -81,6 +78,14 @@ public class User {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }
