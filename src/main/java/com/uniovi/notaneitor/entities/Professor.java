@@ -16,10 +16,11 @@ public class Professor {
     private String apellidos;
     private String categoria;
 
-    public Professor(String dni, String nombre, String apellidos) {
+    public Professor(String dni, String nombre, String apellidos, String categoria) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
+        this.categoria = categoria;
     }
 
     public Professor() {}

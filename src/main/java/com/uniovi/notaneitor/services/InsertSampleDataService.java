@@ -89,6 +89,6 @@ public class InsertSampleDataService {
         usersService.addUser(user5);
         usersService.addUser(user6);
 
-        professorsService.addProfessor(new Professor("21080919","Donato", "Martín"));
+        professorsService.addProfessor(new Professor("21080919","Donato", "Martín", "Sdi"));
     }
 }
