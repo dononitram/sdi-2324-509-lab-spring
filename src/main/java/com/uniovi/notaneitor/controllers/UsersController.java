@@ -1,8 +1,11 @@
 package com.uniovi.notaneitor.controllers;
 
+import com.uniovi.notaneitor.services.MarksService;
 import com.uniovi.notaneitor.services.RolesService;
 import com.uniovi.notaneitor.services.SecurityService;
 import com.uniovi.notaneitor.validators.SignUpFormValidator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,12 +20,14 @@ import com.uniovi.notaneitor.services.UsersService;
 public class UsersController {
 
     private final UsersService usersService;
+    private final MarksService marksService;
     private final SecurityService securityService;
     private final SignUpFormValidator signUpFormValidator;
     private final RolesService rolesService;
 
-    public UsersController(UsersService usersService, SecurityService securityService, SignUpFormValidator signUpFormValidator, RolesService rolesService) {
+    public UsersController(UsersService usersService, MarksService marksService, SecurityService securityService, SignUpFormValidator signUpFormValidator, RolesService rolesService) {
         this.usersService = usersService;
+        this.marksService = marksService;
         this.securityService = securityService;
         this.signUpFormValidator = signUpFormValidator;
         this.rolesService = rolesService;
@@ -101,11 +106,16 @@ public class UsersController {
     }
 
     @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
-    public String home(Model model) {
+    public String home(Model model, Pageable pageable) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String dni = auth.getName();
         User activeUser = usersService.getUserByDni(dni);
-        model.addAttribute("markList", activeUser.getMarks());
+
+        Page<Mark> marks = marksService.getMarksForUser(pageable, activeUser);
+
+        model.addAttribute("marksList", marks.getContent()); // BUG FIXED: ¡Cuidado con los nombres!
+        model.addAttribute("page", marks);
+
         return "home";
     }
 

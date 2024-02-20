@@ -26,12 +26,10 @@ public class MarksController {
     private final MarksService marksService;
     private final UsersService usersService;
     private final MarksValidator marksValidator;
-    private final HttpSession httpSession;
-    public MarksController(MarksService marksService, UsersService usersService, MarksValidator marksValidator, HttpSession httpSession) {
+    public MarksController(MarksService marksService, UsersService usersService, MarksValidator marksValidator) {
         this.marksService = marksService;
         this.usersService = usersService;
         this.marksValidator = marksValidator;
-        this.httpSession = httpSession;
     }
 
     @RequestMapping("/mark/list")
@@ -58,7 +56,7 @@ public class MarksController {
         String dni = principal.getName(); // DNI es el name de la autenticación
         User user = usersService.getUserByDni(dni);
         model.addAttribute("marksList", marksService.getMarksForUser(pageable, user));
-        return "mark/list :: marksTable";
+        return "fragments/marksTable :: marksTable";
     }
 
     @RequestMapping(value = "/mark/add")
@@ -113,13 +111,13 @@ public class MarksController {
     @RequestMapping(value = "/mark/{id}/resend", method = RequestMethod.GET)
     public String setResendTrue(@PathVariable Long id) {
         marksService.setMarkResend(true, id);
-        return "redirect:/mark/list";
+        return "fragments/marksTable";
     }
 
     @RequestMapping(value = "/mark/{id}/noresend", method = RequestMethod.GET)
     public String setResendFalse(@PathVariable Long id) {
         marksService.setMarkResend(false, id);
-        return "redirect:/mark/list";
+        return "fragments/marksTable";
     }
 
 
