@@ -2,6 +2,7 @@ package com.uniovi.notaneitor.controllers;
 
 import com.uniovi.notaneitor.entities.Professor;
 import com.uniovi.notaneitor.services.ProfessorsService;
+import com.uniovi.notaneitor.services.RolesService;
 import com.uniovi.notaneitor.validators.ProfessorsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,6 +75,5 @@ public class ProfessorsController {
         professorsService.addProfessor(professor);
         return "redirect:/professor/details/"+id;
     }
-
 
 }

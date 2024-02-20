@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 
+import com.uniovi.notaneitor.entities.Professor;
 import org.springframework.stereotype.Service;
 import com.uniovi.notaneitor.entities.Mark;
 import com.uniovi.notaneitor.entities.User;
@@ -13,11 +14,13 @@ import com.uniovi.notaneitor.entities.User;
 public class InsertSampleDataService {
 
     private final UsersService usersService;
+    private final ProfessorsService professorsService;
     private final RolesService rolesService;
 
-    public InsertSampleDataService(UsersService usersService, RolesService rolesService) {
+    public InsertSampleDataService(UsersService usersService, RolesService rolesService, ProfessorsService professorsService) {
         this.usersService = usersService;
         this.rolesService = rolesService;
+        this.professorsService = professorsService;
     }
 
     @PostConstruct
@@ -85,5 +88,7 @@ public class InsertSampleDataService {
         usersService.addUser(user4);
         usersService.addUser(user5);
         usersService.addUser(user6);
+
+        professorsService.addProfessor(new Professor("21080919","Donato", "Martín"));
     }
 }
