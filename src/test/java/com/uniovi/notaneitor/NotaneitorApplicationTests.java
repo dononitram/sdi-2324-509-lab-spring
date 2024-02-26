@@ -139,7 +139,7 @@ class NotaneitorApplicationTests {
     @Test
     @Order(9)
     public void PR07() {
-        //Vamos al formulario de logueo.
+        //Vamos al formulario de loggeo.
         PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
         //Rellenamos el formulario
         PO_LoginView.fillLoginForm(driver, "99999990A", "123456");
@@ -147,6 +147,65 @@ class NotaneitorApplicationTests {
         String checkText =  "Notas del usuario";
         List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
         Assertions.assertEquals(checkText, result.get(0).getText());
+    }
+
+    @Test
+    @Order(10)
+    public void PR08() {
+        //Vamos al formulario de loggeo.
+        PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+
+        //Rellenamos el formulario
+        PO_LoginView.fillLoginForm(driver, "99999993D", "123456");
+
+        //Comprobamos que entramos en la página privada de Profesor
+        String checkText = "Notas del usuario";
+        List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
+        Assertions.assertEquals(checkText, result.get(0).getText());
+    }
+
+    @Test
+    @Order(11)
+    public void PR09() {
+        //Vamos al formulario de loggeo.
+        PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+
+        //Rellenamos el formulario
+        PO_LoginView.fillLoginForm(driver, "99999988F", "123456");
+
+        //Comprobamos que entramos en la página privada de Admin
+        String checkText = "Notas del usuario";
+        List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
+        Assertions.assertEquals(checkText, result.get(0).getText());
+    }
+
+    @Test
+    @Order(12)
+    public void PR10() {
+        //Vamos al formulario de loggeo.
+        PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+        //Rellenamos el formulario
+        PO_LoginView.fillLoginForm(driver, "99999990A", "wrong_password");
+        //Comprobamos que no entramos en la página privada de Admin
+        String checkText = "Identifícate";
+        List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
+        Assertions.assertEquals(checkText, result.get(0).getText());
+    }
+
+    @Test
+    @Order(13)
+    public void PR11() {
+        //Vamos al formulario de logueo.
+        PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+        //Rellenamos el formulario
+        PO_LoginView.fillLoginForm(driver, "99999990A", "123456");
+        //Comprobamos que entramos en la página privada de Alumno
+        String checkText = "Notas del usuario";
+        List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
+        Assertions.assertEquals(checkText, result.get(0).getText());
+
+        String loginText = PO_HomeView.getP().getString("signup.message", PO_Properties.getSPANISH());
+        PO_LoginView.clickOption(driver, "logout", "text", loginText);
     }
 
     //PR12. Loguearse, comprobar que se visualizan 4 filas de notas y desconectarse usando el rol de estudiante
@@ -179,7 +238,7 @@ class NotaneitorApplicationTests {
         String checkText = "Notas del usuario";
         List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
         //Contamos las notas
-        By enlace = By.xpath("//td[contains(text(), 'Nota A4')]/following-sibling::*[2]");
+        By enlace = By.xpath("//td[contains(text(), 'Nota A2')]/following-sibling::*[2]");
         driver.findElement(enlace).click();
         //Esperamos por la ventana de detalle
         checkText = "Detalles de la nota";
