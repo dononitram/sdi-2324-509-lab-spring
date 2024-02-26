@@ -1,9 +1,6 @@
 package com.uniovi.notaneitor;
 
-import com.uniovi.notaneitor.pageobjects.PO_HomeView;
-import com.uniovi.notaneitor.pageobjects.PO_Properties;
-import com.uniovi.notaneitor.pageobjects.PO_SignUpView;
-import com.uniovi.notaneitor.pageobjects.PO_View;
+import com.uniovi.notaneitor.pageobjects.*;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -135,6 +132,19 @@ class NotaneitorApplicationTests {
         String checkText = PO_HomeView.getP().getString("Error.signup.name.length",
                 PO_Properties.getSPANISH());
         Assertions.assertEquals(checkText , result.get(0).getText());
+    }
+
+    @Test
+    @Order(9)
+    public void PR07() {
+        //Vamos al formulario de logueo.
+        PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+        //Rellenamos el formulario
+        PO_LoginView.fillLoginForm(driver, "99999990A", "123456");
+        //Comprobamos que entramos en la página privada de Alumno
+        String checkText =  "Notas del usuario";
+        List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
+        Assertions.assertEquals(checkText, result.get(0).getText());
     }
 
 }
