@@ -214,12 +214,10 @@ class NotaneitorApplicationTests {
     public void PR12() {
         PO_PrivateView.login(driver, "99999990A", "123456");
         //Contamos el número de filas de notas
-        List<WebElement> markList = SeleniumUtils.waitLoadElementsBy(driver, "free", "//tbody/tr",
-                PO_View.getTimeout());
+        List<WebElement> markList = SeleniumUtils.waitLoadElementsBy(driver, "free", "//tbody/tr", PO_View.getTimeout());
         Assertions.assertEquals(2, markList.size());
         //Ahora nos desconectamos y comprobamos que aparece el menú de registro
-        String loginText = PO_HomeView.getP().getString("signup.message", PO_Properties.getSPANISH());
-        PO_PrivateView.clickOption(driver, "logout", "text", loginText);
+        PO_PrivateView.logout(driver);
     }
 
     //PR13. Loguearse como estudiante y ver los detalles de la nota con Descripcion = Nota A2.
@@ -229,12 +227,10 @@ class NotaneitorApplicationTests {
         PO_PrivateView.login(driver, "99999990A", "123456");
         //SeleniumUtils.esperarSegundos(driver, 1);
         //Contamos las notas
-        By enlace = By.xpath("//td[contains(text(), 'Nota A2')]/following-sibling::*[2]");
-        driver.findElement(enlace).click();
+        PO_PrivateView.clickElementByXpath(driver, "//td[contains(text(), 'Nota A2')]/following-sibling::*[2]", 0);
         //Esperamos por la ventana de detalle
         String checkText = "Detalles de la nota";
-        List<WebElement> result = PO_View.checkElementBy(driver, "text", checkText);
-        Assertions.assertEquals(checkText, result.get(0).getText());
+        Assertions.assertEquals(checkText, PO_PrivateView.getElementByText(driver,checkText,0).getText());
         //Ahora nos desconectamos comprobamas que aparece el menu de registrarse
         PO_PrivateView.logout(driver);
     }
@@ -244,62 +240,61 @@ class NotaneitorApplicationTests {
     @Test
     @Order(16)
     public void PR14() {
+
         PO_PrivateView.login(driver, "99999993D", "123456");
+
         //Pinchamos en la opción de menú de Notas: //li[contains(@id, 'marks-menu')]/a
-        //List<WebElement> elements = PO_View.checkElementBy(driver, "free", "//li[contains(@id, 'marks-menu')]/a");
-        List<WebElement> elements = PO_View.checkElementBy(driver, "free", "//*[@id='myNavbar']/ul[1]/li[2]");
-        elements.get(0).click();
+        PO_PrivateView.clickElementByXpath(driver,"//*[@id='myNavbar']/ul[1]/li[2]", 0);
+
         //Esperamos a que aparezca la opción de añadir nota: //a[contains(@href, 'mark/add')] y la añadimos
-        elements = PO_View.checkElementBy(driver, "free", "//a[contains(@href, 'mark/add')]");
-        elements.get(0).click();
+        PO_PrivateView.clickElementByXpath(driver, "//a[contains(@href, 'mark/add')]", 0);
+
         //Ahora vamos a rellenar la nota con mas de 20 caracteres. //option[contains(@value, '4')]
         String checkText = "Nota sistemas distribuidos";
         PO_PrivateView.fillFormAddMark(driver, 3, checkText, "8");
+
         //Esperamos a que se muestren los enlaces de paginación de la lista de notas
-        elements = PO_View.checkElementBy(driver, "free", "//a[contains(@class, 'page-link')]");
-        //Nos vamos a la última página
-        elements.get(4).click();
+        PO_PrivateView.clickElementByXpath(driver, "//a[contains(@class, 'page-link')]", 4);
+
         //Comprobamos que aparece la nota en la página
-        elements = PO_View.checkElementBy(driver, "text", checkText);
-        Assertions.assertEquals(checkText, elements.get(0).getText());
+        Assertions.assertEquals(checkText, PO_PrivateView.getElementByText(driver,checkText,0).getText());
+
         //Ahora nos desconectamos y comprobamos que aparece el menú de registrarse
-        String loginText = PO_HomeView.getP().getString("signup.message", PO_Properties.getSPANISH());
-        PO_PrivateView.clickOption(driver, "logout", "text", loginText);
+        PO_PrivateView.logout(driver);
     }
 
     // Solo funciona si se ejecuta después de la 14
     @Test
     @Order(17)
     public void PR15() {
+
         //Vamos al formulario de login.
         PO_PrivateView.login(driver, "99999993D", "123456");
+
         //Pinchamos en la opción de menú de Notas: //li[contains(@id, 'marks-menu')]/a
-        //List<WebElement>  elements = PO_View.checkElementBy(driver, "free", "//li[contains(@id, 'marks-menu')]/a");
-        List<WebElement> elements = PO_View.checkElementBy(driver, "free",
-                "//*[@id='myNavbar']/ul[1]/li[2]");
-        elements.get(0).click();
+        PO_PrivateView.clickElementByXpath(driver, "//*[@id='myNavbar']/ul[1]/li[2]", 0);
+
         //Pinchamos en la opción de lista de notas.
-        elements = PO_View.checkElementBy(driver, "free", "//a[contains(@href, 'mark/list')]");
-        elements.get(0).click();
+        PO_PrivateView.clickElementByXpath(driver, "//a[contains(@href, 'mark/list')]", 0);
+
         //Esperamos a que se muestren los enlaces de paginación la lista de notas
-        elements = PO_View.checkElementBy(driver, "free", "//a[contains(@class, 'page-link')]");
-        //Nos vamos a la última página
-        elements.get(4).click();
+        PO_PrivateView.clickElementByXpath(driver, "//a[contains(@class, 'page-link')]", 4);
 
         //Esperamos a que aparezca la Nueva nota en la última página
         //Y Pinchamos en el enlace de borrado de la Nota "Nota sistemas distribuidos"
-        elements = PO_View.checkElementBy(driver, "free", "//td[contains(text(), 'Nota sistemas distribuidos')]/following-sibling::*/a[contains(@href, 'mark/delete')]");
-        elements.get(0).click();
+        PO_PrivateView.clickElementByXpath(driver, "//td[contains(text(), 'Nota sistemas distribuidos')]/following-sibling::*/a[contains(@href, 'mark/delete')]", 0);
 
         //Volvemos a la última página
-        elements = PO_View.checkElementBy(driver, "free", "//a[contains(@class, 'page-link')]");
-        elements.get(4).click();
+        PO_PrivateView.clickElementByXpath(driver, "//a[contains(@class, 'page-link')]", 4);
 
         //Y esperamos a que NO aparezca la última "Creando una nota nueva"
         SeleniumUtils.waitTextIsNotPresentOnPage(driver, "Nota sistemas distribuidos",PO_View.getTimeout());
 
         //Ahora nos desconectamos comprobamos que aparece el menú de registrarse
         PO_PrivateView.logout(driver);
+
     }
+
+
 
 }
