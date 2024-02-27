@@ -37,4 +37,14 @@ public class PO_PrivateView extends PO_NavView {
         PO_PrivateView.clickOption(driver, "logout", "text", loginText);
     }
 
+    public static void clickElementByXpath(WebDriver driver, String xpath, int pos) {
+        List<WebElement> elements = PO_View.checkElementBy(driver, "free", xpath);
+        elements.get(pos).click();
+    }
+
+    public static WebElement getElementByText(WebDriver driver, String text, int pos) {
+        List<WebElement> elements = PO_View.checkElementBy(driver, "text", text);
+        return elements.get(pos);
+    }
+
 }
